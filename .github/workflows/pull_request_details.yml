@@ -17,10 +17,13 @@ jobs:
       - name: Print Hello World
         run: echo "Hello World"
 
+      - name: Check out branch1
+        run: git checkout -B branch1 origin/branch1
+
       - name: Print Pull Request Details
         run: |
           echo "Author: ${{ github.event.pull_request.user.login }}"
           echo "Last Commit: ${{ github.event.pull_request.head.sha }}"
           echo "Changes between the last commit and default branch:"
-          git fetch origin ${{ github.event.pull_request.base.ref }}:${{ github.event.pull_request.base.ref }}
-          git diff --name-status ${{ github.event.pull_request.base.ref }}..${{ github.event.pull_request.head.ref }}
+          git fetch origin main:main
+          git diff --name-status main..branch1
