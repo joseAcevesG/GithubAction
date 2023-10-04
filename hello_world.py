@@ -1,3 +1,3 @@
 print("Hello World!")
-print("This is my first Github Action ")
+print("This is my first Github Action")
 
