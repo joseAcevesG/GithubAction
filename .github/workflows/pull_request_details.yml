@@ -22,6 +22,10 @@ jobs:
           echo "Author: ${{ github.event.pull_request.user.login }}"
           echo "Last Commit: ${{ github.event.pull_request.head.sha }}"
           echo "Changes between the last commit and default branch:"
-          echo "test ${{ github.event.pull_request.head.ref }}"
-          git checkout ${{ github.event.pull_request.head.ref }}
-          echo "git diff main"
+          branch_name="${{ github.event.pull_request.head.ref }}"
+          if git show-ref --verify --quiet "refs/heads/${branch_name}"; then
+            git checkout "${branch_name}"
+            git diff main
+          else
+            echo "Branch '${branch_name}' does not exist."
+          fi
