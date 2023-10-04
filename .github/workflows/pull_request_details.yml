@@ -1,18 +1,27 @@
-name: Hello World
+name: Print Pull Request Details
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types:
+      - opened
+      - synchronize
+
 jobs:
-  build:
+  print_details:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Print details to log
+
+      - name: Print Hello World
+        run: echo "Hello World"
+
+      - name: Print Pull Request Details
         run: |
-          echo "Hello World"
           echo "Author: ${{ github.event.pull_request.user.login }}"
-          echo "Last commit: ${{ github.event.pull_request.head.sha }}"
-          echo "Changes between last commit and default branch:"
-          git log --pretty=oneline ${{ github.event.pull_request.head.sha }}..${{ github.event.pull_request.base.sha }}
+          echo "Last Commit: ${{ github.event.pull_request.head.sha }}"
+          echo "Changes between the last commit and default branch:"
+          echo "test ${{ github.event.pull_request.head.ref }}"
+          git checkout ${{ github.event.pull_request.head.ref }}
+          echo "git diff main"
