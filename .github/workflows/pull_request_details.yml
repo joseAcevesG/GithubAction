@@ -15,4 +15,4 @@ jobs:
           echo "Author: ${{ github.event.pull_request.user.login }}"
           echo "Last commit: ${{ github.event.pull_request.head.sha }}"
           echo "Changes between last commit and default branch:"
-          git diff --name-only ${{ github.event.pull_request.head.sha }} ${{ github.event.pull_request.base.sha }}
+          git log --pretty=oneline ${{ github.event.pull_request.head.sha }}..${{ github.event.pull_request.base.sha }}
