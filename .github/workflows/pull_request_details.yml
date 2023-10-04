@@ -14,6 +14,9 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Fetch All Branches
+        run: git fetch --all
+
       - name: Print Hello World
         run: echo "Hello World"
 
@@ -22,7 +25,6 @@ jobs:
           echo "Author: ${{ github.event.pull_request.user.login }}"
           echo "Last Commit: ${{ github.event.pull_request.head.sha }}"
           echo "Changes between the last commit and default branch:"
-          git fetch --all
           branch_name="${{ github.event.pull_request.head.ref }}"
           if git show-ref --verify --quiet "refs/heads/${branch_name}"; then
             git checkout "${branch_name}"
